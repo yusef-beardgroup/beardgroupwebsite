@@ -1,9 +1,119 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+import Arrow from '../components/Arrow.astro';
 import PageHero from '../components/PageHero.astro';
+import { team } from '../data/team';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .map((part) => part[0])
+    .join('');
 ---
 
-<BaseLayout title="Meet the Team">
-  <PageHero title="Meet the Team" lede="This page is being built. Check back soon." />
+<BaseLayout title="Meet the Team" description="The leadership team of Beard Group, Inc.">
+  <PageHero title="Meet the Team" lede="The leadership team behind Beard Group." />
+
+  <section class="section">
+    <div class="container">
+      <ul class="team">
+        {
+          team.map((member) => (
+            <li class="member">
+              <div class="member__profile">
+                <span class="member__initials" aria-hidden="true">
+                  {initials(member.name)}
+                </span>
+                <div>
+                  <h2>{member.name}</h2>
+                  <p class="member__title">{member.title}</p>
+                </div>
+                <a class="link-arrow member__link" href={member.linkedin} target="_blank" rel="noopener">
+                  LinkedIn
+                  <span class="visually-hidden">: {member.name}, opens in a new tab</span>
+                  <Arrow external />
+                </a>
+              </div>
+              <p class="member__bio">{member.bio}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .team {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .member {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 2rem clamp(2rem, 6vw, 6rem);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .member:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .member:last-child {
+    padding-bottom: 0;
+  }
+
+  .member__profile {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: 1.25rem;
+  }
+
+  .member__initials {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    background: radial-gradient(120% 120% at 100% 0%, #14325c 0%, var(--navy) 55%, var(--navy-dark) 100%);
+    color: var(--white);
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    line-height: 1.15;
+  }
+
+  .member__title {
+    margin-top: 0.4rem;
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .member__link {
+    color: var(--navy);
+    font-size: var(--text-sm);
+  }
+
+  .member__bio {
+    max-width: 46rem;
+    color: var(--gray-700);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 52rem) {
+    .member {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
