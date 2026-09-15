@@ -3,31 +3,58 @@ import Arrow from './Arrow.astro';
 
 interface Props {
   title: string;
-  /** External URL; the whole card links here and opens in a new tab. */
+  /**
+   * The whole card links here. Absolute URLs open in a new tab; site paths
+   * should be built with url().
+   */
   href: string;
   /** Short label above the title, such as publishing frequency. */
   meta?: string;
   linkLabel?: string;
+  /** Small text opposite the link; defaults to the domain for external links. */
+  detail?: string;
+  /** Mark the link as a file download. */
+  download?: boolean;
   headingLevel?: 'h2' | 'h3';
+  size?: 'default' | 'large';
 }
 
-const { title, href, meta, linkLabel = 'Learn More', headingLevel: Heading = 'h3' } = Astro.props;
-const domain = new URL(href).hostname.replace(/^www\./, '');
+const {
+  title,
+  href,
+  meta,
+  linkLabel = 'Learn More',
+  detail,
+  download = false,
+  headingLevel: Heading = 'h3',
+  size = 'default',
+} = Astro.props;
+
+const external = /^https?:\/\//.test(href);
+const footerDetail = detail ?? (external ? new URL(href).hostname.replace(/^www\./, '') : undefined);
+const icon = download ? 'download' : external ? 'external' : 'next';
 ---
 
-<article class="card">
+<article class:list={['card', { 'card--large': size === 'large' }]}>
   {meta && <p class="card__meta">{meta}</p>}
   <Heading class="card__title">{title}</Heading>
   <div class="card__body">
     <slot />
   </div>
   <footer class="card__footer">
-    <a class="card__link" href={href} target="_blank" rel="noopener">
+    <a
+      class="card__link"
+      href={href}
+      data-icon={icon}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener' : undefined}
+      download={download || undefined}
+    >
       {linkLabel}
-      <span class="visually-hidden">: {title}, opens in a new tab</span>
-      <Arrow external />
+      <span class="visually-hidden">: {title}{external && ', opens in a new tab'}</span>
+      <Arrow external={icon === 'external'} download={download} />
     </a>
-    <span class="card__domain">{domain}</span>
+    {footerDetail && <span class="card__detail">{footerDetail}</span>}
   </footer>
 </article>
 
@@ -45,6 +72,11 @@ const domain = new URL(href).hostname.replace(/^www\./, '');
       border-color 0.25s var(--ease-out),
       box-shadow 0.25s var(--ease-out),
       transform 0.25s var(--ease-out);
+  }
+
+  .card--large {
+    gap: 1rem;
+    padding: clamp(1.75rem, 4vw, 3rem);
   }
 
   .card::before {
@@ -100,11 +132,19 @@ const domain = new URL(href).hostname.replace(/^www\./, '');
     line-height: 1.15;
   }
 
+  .card--large .card__title {
+    font-size: var(--text-2xl);
+  }
+
   .card__body {
     margin-bottom: 1rem;
     color: var(--gray-700);
     font-size: 0.95rem;
     line-height: 1.6;
+  }
+
+  .card--large .card__body {
+    font-size: var(--text-base);
   }
 
   .card__footer {
@@ -143,11 +183,19 @@ const domain = new URL(href).hostname.replace(/^www\./, '');
     transition: transform 0.25s var(--ease-out);
   }
 
-  .card:hover .card__link :global(svg) {
+  .card:hover .card__link[data-icon='next'] :global(svg) {
+    transform: translateX(4px);
+  }
+
+  .card:hover .card__link[data-icon='external'] :global(svg) {
     transform: translate(2px, -2px);
   }
 
-  .card__domain {
+  .card:hover .card__link[data-icon='download'] :global(svg) {
+    transform: translateY(2px);
+  }
+
+  .card__detail {
     color: var(--gray-500);
     font-size: 0.8rem;
   }

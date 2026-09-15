@@ -1,9 +1,76 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+import Arrow from '../components/Arrow.astro';
+import LinkCard from '../components/LinkCard.astro';
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+
+// Kept evergreen: dates, agenda, and registration live on each event's own site.
+const conferences = [
+  {
+    name: 'Distressed Investing Conference',
+    href: 'https://www.distressedinvestingconference.com/',
+    description:
+      "Beard Group's annual gathering for the distressed investing and restructuring community — attorneys, investors, advisors, and judges.",
+  },
+  {
+    name: 'Class Action Money & Ethics Conference',
+    href: 'https://www.classactionconference.com/',
+    description:
+      "Beard Group's annual conference on class action litigation, aligning interests and optimizing outcomes across the industry.",
+  },
+];
 ---
 
-<BaseLayout title="Conferences">
-  <PageHero title="Conferences" lede="This page is being built. Check back soon." />
+<BaseLayout
+  title="Conferences"
+  description="Beard Group hosts the Distressed Investing Conference and the Class Action Money & Ethics Conference, both held annually at The Harmonie Club in New York City."
+>
+  <PageHero
+    title="Conferences"
+    lede="Beard Group hosts two annual conferences, both held at The Harmonie Club in New York City. Each event's site has the current dates, agenda, and registration details."
+  />
+
+  <section class="section">
+    <div class="container">
+      <ul class="card-grid card-grid--2">
+        {
+          conferences.map((conference) => (
+            <li>
+              <LinkCard
+                title={conference.name}
+                href={conference.href}
+                meta="The Harmonie Club, New York City"
+                linkLabel="Dates, agenda & registration"
+                headingLevel="h2"
+                size="large"
+              >
+                <p>{conference.description}</p>
+              </LinkCard>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="conference-contact">
+        Questions about our conferences?
+        <a class="link-arrow" href={url('contact/')}>Contact us <Arrow /></a>
+      </p>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .conference-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    color: var(--gray-700);
+  }
+
+  .conference-contact .link-arrow {
+    color: var(--navy);
+  }
+</style>
