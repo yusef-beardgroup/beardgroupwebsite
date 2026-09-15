@@ -59,6 +59,19 @@ const currentPage = (href: string) => (Astro.url.pathname === url(href) ? 'page'
   </div>
 </header>
 
+<script>
+  // Close the menu on Escape even where the browser's built-in popover
+  // dismissal doesn't fire, and return focus to the menu button.
+  const menu = document.getElementById('mobile-menu');
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || typeof menu?.hidePopover !== 'function') return;
+    if (!menu.matches(':popover-open')) return;
+    menu.hidePopover();
+    document.querySelector<HTMLButtonElement>('.menu-button')?.focus();
+  });
+</script>
+
 <style>
   .site-header {
     position: sticky;
