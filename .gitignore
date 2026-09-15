@@ -1,0 +1,16 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment and OS files
+.env
+.env.*
+.DS_Store
+.claude/
+
+# Internal handoff materials (content brief, reference assets). The repo is
+# public; the PDFs the site serves are copied into public/.
+beard-group-website-handoff/

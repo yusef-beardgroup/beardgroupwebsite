@@ -1,0 +1,325 @@
+---
+import Arrow from '../components/Arrow.astro';
+import Wordmark from '../components/Wordmark.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+
+const quickLinks = [
+  {
+    title: 'Products',
+    text: 'Newsletters and research covering bankruptcy, restructuring, and class action litigation.',
+    href: 'products/',
+  },
+  {
+    title: 'Conferences',
+    text: 'The Distressed Investing Conference and the Class Action Money & Ethics Conference.',
+    href: 'conferences/',
+  },
+  {
+    title: 'Contact Us',
+    text: 'Questions about our publications, events, or partnerships.',
+    href: 'contact/',
+  },
+];
+
+const milestones = [
+  { figure: '1994', label: 'The Troubled Company Reporter begins daily coverage of chapter 11 filings' },
+  { figure: '300+', label: 'Business, law, and finance books published through BeardBooks.com' },
+  { figure: '2', label: 'Leading annual industry conferences in Midtown Manhattan' },
+];
+
+const syndicationPartners = [
+  'LexisNexis',
+  'Westlaw',
+  'Bloomberg Professional',
+  'Factiva',
+  'Refinitiv',
+  'AlphaSense',
+];
+---
+
+<BaseLayout revealBrandOnScroll>
+  <section class="hero surface-navy on-dark">
+    <div class="container">
+      <h1 class="hero__wordmark">
+        <Wordmark />
+        <span class="visually-hidden">Beard Group, Law &amp; Business Publishers</span>
+      </h1>
+
+      <p class="hero__statement">
+        Since 1986, Beard Group has delivered the definitive daily record of corporate distress,
+        restructuring, and class action litigation to the professionals who navigate it.
+      </p>
+
+      <ul class="quick-links">
+        {
+          quickLinks.map((link) => (
+            <li>
+              <a href={url(link.href)}>
+                <span class="quick-links__title">
+                  {link.title}
+                  <Arrow />
+                </span>
+                <span class="quick-links__text">{link.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="intro">
+        <div>
+          <p class="eyebrow">About Beard Group</p>
+          <h2>A law and business publisher founded in 1986.</h2>
+        </div>
+
+        <div class="intro__body">
+          <p>
+            The world's largest law firms, financial professionals, risk managers, business
+            consultants, and investors rely on our newsletter titles and research.
+          </p>
+          <p>
+            We also publish more than 300 business, law, and finance books through BeardBooks.com,
+            produce webinars and podcasts, and host two of the industry's leading annual gatherings
+            in Midtown Manhattan.
+          </p>
+          <a class="link-arrow" href={url('about/')}>More about Beard Group <Arrow /></a>
+        </div>
+      </div>
+
+      <ul class="milestones">
+        {
+          milestones.map((milestone) => (
+            <li>
+              <span class="milestones__figure">{milestone.figure}</span>
+              <span class="milestones__label">{milestone.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="partners" aria-labelledby="partners-heading">
+    <div class="container partners__inner">
+      <h2 id="partners-heading">Our news and research is available via</h2>
+      <ul>
+        {syndicationPartners.map((partner) => <li>{partner}</li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-top: clamp(4rem, 10vw, 8rem);
+  }
+
+  .hero__wordmark {
+    width: min(100%, 34rem);
+    animation: rise 0.9s var(--ease-out) both;
+  }
+
+  .hero__statement {
+    max-width: 30ch;
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    color: rgb(255 255 255 / 0.94);
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    animation: rise 0.9s 0.12s var(--ease-out) both;
+  }
+
+  .quick-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: clamp(3.5rem, 8vw, 6rem) 0 0;
+    padding: 0;
+    border-top: 1px solid rgb(255 255 255 / 0.16);
+    list-style: none;
+    animation: rise 0.9s 0.24s var(--ease-out) both;
+  }
+
+  .quick-links li + li {
+    border-left: 1px solid rgb(255 255 255 / 0.16);
+  }
+
+  .quick-links a {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+    height: 100%;
+    padding: 1.75rem 2rem 2.5rem;
+    text-decoration: none;
+  }
+
+  .quick-links li:first-child a {
+    padding-left: 0;
+  }
+
+  .quick-links li:last-child a {
+    padding-right: 0;
+  }
+
+  .quick-links__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: var(--text-lg);
+    font-weight: 500;
+  }
+
+  .quick-links__text {
+    max-width: 32ch;
+    color: rgb(255 255 255 / 0.66);
+    font-size: var(--text-sm);
+    transition: color 0.25s var(--ease-out);
+  }
+
+  .quick-links a:hover .quick-links__text {
+    color: rgb(255 255 255 / 0.9);
+  }
+
+  .quick-links :global(svg) {
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .quick-links a:hover :global(svg) {
+    transform: translateX(4px);
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 2rem clamp(2rem, 8vw, 7rem);
+  }
+
+  .intro h2 {
+    max-width: 15ch;
+    font-size: var(--text-2xl);
+  }
+
+  .intro__body {
+    display: grid;
+    justify-items: start;
+    gap: 1.25rem;
+    padding-top: 2.7rem;
+    color: var(--gray-700);
+    font-size: var(--text-lg);
+  }
+
+  .intro__body .link-arrow {
+    margin-top: 0.75rem;
+    color: var(--navy);
+    font-size: var(--text-base);
+  }
+
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin: clamp(4rem, 9vw, 7rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .milestones li {
+    display: grid;
+    align-content: start;
+    gap: 0.9rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--black);
+  }
+
+  .milestones__figure {
+    color: var(--navy);
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .milestones__label {
+    max-width: 26ch;
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+  }
+
+  .partners {
+    padding-block: clamp(2.5rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--gray-200);
+    background: var(--gray-50);
+  }
+
+  .partners__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1rem 3rem;
+  }
+
+  .partners h2 {
+    color: var(--gray-500);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    letter-spacing: normal;
+  }
+
+  .partners ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .partners li {
+    color: var(--gray-700);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 52rem) {
+    .intro {
+      grid-template-columns: 1fr;
+    }
+
+    .intro__body {
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .quick-links,
+    .milestones {
+      grid-template-columns: 1fr;
+    }
+
+    .quick-links li + li {
+      border-top: 1px solid rgb(255 255 255 / 0.16);
+      border-left: 0;
+    }
+
+    .quick-links a,
+    .quick-links li:first-child a,
+    .quick-links li:last-child a {
+      padding: 1.5rem 0;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+</style>

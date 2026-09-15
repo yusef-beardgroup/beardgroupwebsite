@@ -1,0 +1,54 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  /** Page name for the document title; omit on Home. */
+  title?: string;
+  description?: string;
+  revealBrandOnScroll?: boolean;
+}
+
+const {
+  title,
+  description = 'Beard Group, Inc. is a law and business publisher founded in 1986, covering corporate distress, restructuring, and class action litigation.',
+  revealBrandOnScroll = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | Beard Group` : 'Beard Group | Law & Business Publishers';
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+// Keep the interim github.io preview out of search results. This drops away
+// automatically once the site is served from beardgroup.com.
+const isPreviewHost = Astro.site?.hostname.endsWith('github.io') ?? false;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {isPreviewHost && <meta name="robots" content="noindex" />}
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Beard Group" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header revealBrandOnScroll={revealBrandOnScroll} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

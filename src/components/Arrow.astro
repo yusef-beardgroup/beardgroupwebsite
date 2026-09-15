@@ -1,0 +1,18 @@
+---
+interface Props {
+  /** Diagonal arrow for links that leave the site. */
+  external?: boolean;
+}
+
+const { external = false } = Astro.props;
+---
+
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+  {
+    external ? (
+      <path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.5" />
+    ) : (
+      <path d="M1.5 8h12.5M9.5 3.5 14 8l-4.5 4.5" stroke="currentColor" stroke-width="1.5" />
+    )
+  }
+</svg>

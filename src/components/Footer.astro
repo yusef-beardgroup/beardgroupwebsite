@@ -1,0 +1,94 @@
+---
+import Wordmark from './Wordmark.astro';
+import { contactLink, legalName, primaryNav, privacyLink } from '../data/site';
+import { url } from '../lib/url';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="site-footer__top">
+      <a class="site-footer__brand" href={url()}>
+        <Wordmark />
+        <span class="visually-hidden">Beard Group home</span>
+      </a>
+
+      <nav aria-label="Footer">
+        <ul>
+          {
+            [...primaryNav, contactLink].map((item) => (
+              <li>
+                <a href={url(item.href)}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>&copy; {year} {legalName} All rights reserved.</p>
+      <a href={url(privacyLink.href)}>{privacyLink.label}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: clamp(3.5rem, 7vw, 5.5rem) 2rem;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .site-footer__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+  }
+
+  .site-footer__brand {
+    display: block;
+    width: min(17rem, 100%);
+    color: var(--white);
+  }
+
+  .site-footer ul {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 0.75rem 4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer a {
+    color: rgb(255 255 255 / 0.72);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: color 0.2s var(--ease-out);
+  }
+
+  .site-footer a:hover {
+    color: var(--white);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-top: 1.75rem;
+    color: rgb(255 255 255 / 0.55);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 40rem) {
+    .site-footer__top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

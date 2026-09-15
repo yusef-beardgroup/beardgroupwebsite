@@ -1,0 +1,260 @@
+---
+import Wordmark from './Wordmark.astro';
+import { contactLink, primaryNav } from '../data/site';
+import { url } from '../lib/url';
+
+interface Props {
+  /** Home shows the full wordmark in its hero, so the header copy fades in on scroll. */
+  revealBrandOnScroll?: boolean;
+}
+
+const { revealBrandOnScroll = false } = Astro.props;
+const currentPage = (href: string) => (Astro.url.pathname === url(href) ? 'page' : undefined);
+---
+
+<header class="site-header" data-reveal-brand={revealBrandOnScroll || undefined}>
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href={url()}>
+      <Wordmark tagline={false} />
+      <span class="visually-hidden">Beard Group home</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        {
+          primaryNav.map((item) => (
+            <li>
+              <a href={url(item.href)} aria-current={currentPage(item.href)}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="button" href={url(contactLink.href)} aria-current={currentPage(contactLink.href)}>
+        {contactLink.label}
+      </a>
+    </nav>
+
+    <button class="menu-button" type="button" popovertarget="mobile-menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" popover>
+    <nav aria-label="Main">
+      <ul>
+        {
+          [...primaryNav, contactLink].map((item) => (
+            <li>
+              <a href={url(item.href)} aria-current={currentPage(item.href)}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--gray-200);
+    background: rgb(255 255 255 / 0.9);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    backdrop-filter: saturate(1.4) blur(14px);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    height: var(--header-height);
+  }
+
+  .site-header__brand {
+    flex: none;
+    width: 10.5rem;
+    color: var(--black);
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav ul a {
+    position: relative;
+    display: block;
+    padding-block: 0.5rem;
+    color: var(--gray-700);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s var(--ease-out);
+  }
+
+  .site-nav ul a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0.2rem;
+    left: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .site-nav ul a:hover,
+  .site-nav ul a[aria-current] {
+    color: var(--black);
+  }
+
+  .site-nav ul a:hover::after,
+  .site-nav ul a[aria-current]::after {
+    transform: scaleX(1);
+  }
+
+  .menu-button,
+  .mobile-menu {
+    display: none;
+  }
+
+  @media (max-width: 64rem) {
+    .site-nav {
+      display: none;
+    }
+
+    .menu-button {
+      display: grid;
+      place-content: center;
+      gap: 6px;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-right: -0.6rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--black);
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: currentColor;
+      transition: transform 0.25s var(--ease-out);
+    }
+
+    .site-header:has(.mobile-menu:popover-open) .menu-button span:first-child {
+      transform: translateY(3.75px) rotate(45deg);
+    }
+
+    .site-header:has(.mobile-menu:popover-open) .menu-button span:last-child {
+      transform: translateY(-3.75px) rotate(-45deg);
+    }
+
+    .mobile-menu:popover-open {
+      display: block;
+      position: fixed;
+      inset: var(--header-height) 0 0 0;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      margin: 0;
+      padding: 1rem var(--gutter) 2rem;
+      border: 0;
+      border-top: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--black);
+      animation: menu-in 0.3s var(--ease-out);
+    }
+
+    .mobile-menu ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding-block: 1rem;
+      border-bottom: 1px solid var(--gray-200);
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      line-height: 1.2;
+      text-decoration: none;
+    }
+
+    .mobile-menu a[aria-current] {
+      color: var(--navy);
+    }
+
+    /* Browsers without the Popover API get the plain nav, wrapped. */
+    @supports not selector(:popover-open) {
+      .menu-button {
+        display: none;
+      }
+
+      .site-header__inner {
+        flex-wrap: wrap;
+        height: auto;
+        padding-block: 1rem;
+      }
+
+      .site-nav,
+      .site-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .site-header[data-reveal-brand] .site-header__brand {
+      animation: brand-reveal linear both;
+      animation-timeline: scroll(root);
+      animation-range: 12vh 40vh;
+    }
+  }
+
+  @keyframes brand-reveal {
+    from {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(0.5rem);
+    }
+
+    to {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+  }
+</style>

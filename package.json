@@ -1,0 +1,23 @@
+{
+  "name": "beardgroupwebsite",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-links.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "wordmark": "node scripts/generate-wordmark.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "astro": "^7.3.2"
+  },
+  "devDependencies": {
+    "@fontsource/arimo": "^5.3.0",
+    "@fontsource/tinos": "^5.3.0",
+    "opentype.js": "^2.0.0"
+  }
+}
