@@ -1,9 +1,59 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+import LinkCard from '../components/LinkCard.astro';
 import PageHero from '../components/PageHero.astro';
+import SyndicationPartners from '../components/SyndicationPartners.astro';
+import { regionalTitles, titles } from '../data/products';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const groups = [
+  { id: 'titles', heading: 'Our titles', products: titles, gridClass: 'card-grid' },
+  {
+    id: 'regional-titles',
+    heading: 'Regional editions and specialty titles',
+    products: regionalTitles,
+    gridClass: 'card-grid card-grid--4',
+  },
+];
 ---
 
-<BaseLayout title="Products">
-  <PageHero title="Products" lede="This page is being built. Check back soon." />
+<BaseLayout
+  title="Products"
+  description="Beard Group newsletters and research covering bankruptcy, restructuring, and class action litigation."
+>
+  <PageHero
+    title="Products"
+    lede="Newsletters and research covering bankruptcy, restructuring, and class action litigation across North America, Europe, Latin America, and Asia Pacific. Subscription details for each title are available on its own site."
+  />
+
+  {
+    groups.map((group) => (
+      <section class="section product-group" aria-labelledby={group.id}>
+        <div class="container">
+          <h2 id={group.id}>{group.heading}</h2>
+          <ul class={group.gridClass}>
+            {group.products.map((product) => (
+              <li>
+                <LinkCard title={product.name} href={product.href} meta={product.frequency}>
+                  <p>{product.description}</p>
+                </LinkCard>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+
+  <SyndicationPartners />
 </BaseLayout>
+
+<style>
+  .product-group + .product-group {
+    padding-top: 0;
+  }
+
+  h2 {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    font-size: var(--text-2xl);
+  }
+</style>

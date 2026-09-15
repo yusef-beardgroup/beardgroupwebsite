@@ -1,5 +1,6 @@
 ---
 import Arrow from '../components/Arrow.astro';
+import SyndicationPartners from '../components/SyndicationPartners.astro';
 import Wordmark from '../components/Wordmark.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { url } from '../lib/url';
@@ -26,15 +27,6 @@ const milestones = [
   { figure: '1994', label: 'The Troubled Company Reporter begins daily coverage of chapter 11 filings' },
   { figure: '300+', label: 'Business, law, and finance books published through BeardBooks.com' },
   { figure: '2', label: 'Leading annual industry conferences in Midtown Manhattan' },
-];
-
-const syndicationPartners = [
-  'LexisNexis',
-  'Westlaw',
-  'Bloomberg Professional',
-  'Factiva',
-  'Refinitiv',
-  'AlphaSense',
 ];
 ---
 
@@ -104,14 +96,7 @@ const syndicationPartners = [
     </div>
   </section>
 
-  <section class="partners" aria-labelledby="partners-heading">
-    <div class="container partners__inner">
-      <h2 id="partners-heading">Our news and research is available via</h2>
-      <ul>
-        {syndicationPartners.map((partner) => <li>{partner}</li>)}
-      </ul>
-    </div>
-  </section>
+  <SyndicationPartners />
 </BaseLayout>
 
 <style>
@@ -249,43 +234,6 @@ const syndicationPartners = [
     max-width: 26ch;
     color: var(--gray-500);
     font-size: var(--text-sm);
-  }
-
-  .partners {
-    padding-block: clamp(2.5rem, 5vw, 3.5rem);
-    border-top: 1px solid var(--gray-200);
-    background: var(--gray-50);
-  }
-
-  .partners__inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 1rem 3rem;
-  }
-
-  .partners h2 {
-    color: var(--gray-500);
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    line-height: 1.4;
-    letter-spacing: normal;
-  }
-
-  .partners ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 2.5rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .partners li {
-    color: var(--gray-700);
-    font-family: var(--font-serif);
-    font-size: var(--text-xl);
-    letter-spacing: -0.01em;
   }
 
   @media (max-width: 52rem) {
