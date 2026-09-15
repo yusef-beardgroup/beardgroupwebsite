@@ -1,9 +1,70 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+import { statSync } from 'node:fs';
+import path from 'node:path';
+import LinkCard from '../components/LinkCard.astro';
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+
+/** Label for a PDF in public/, e.g. "PDF, 72 KB". Builds run from the project root. */
+const pdfLabel = (file: string) =>
+  `PDF, ${Math.round(statSync(path.join(process.cwd(), 'public', file)).size / 1024)} KB`;
+
+const items = [
+  {
+    title: 'Pay an open invoice',
+    text: 'Pay a Beard Group invoice online through our payment page.',
+    href: 'https://ecommerce.bankrupt.com/bin/ibl_payment',
+    linkLabel: 'Pay online',
+  },
+  {
+    title: 'Form W-9',
+    text: "Beard Group, Inc.'s completed IRS Form W-9 for your vendor records.",
+    href: url('formw9.pdf'),
+    linkLabel: 'Download W-9',
+    detail: pdfLabel('formw9.pdf'),
+    download: true,
+  },
+  {
+    title: 'ACH payment instructions',
+    text: 'Bank details for paying Beard Group invoices by ACH transfer.',
+    href: url('ACHPaymentInstructions.pdf'),
+    linkLabel: 'Download instructions',
+    detail: pdfLabel('ACHPaymentInstructions.pdf'),
+    download: true,
+  },
+];
 ---
 
-<BaseLayout title="Payments &amp; W-9">
-  <PageHero title="Payments &amp; W-9" lede="This page is being built. Check back soon." />
+<BaseLayout
+  title="Payments & W-9"
+  description="Pay a Beard Group invoice online, or download Beard Group's Form W-9 and ACH payment instructions."
+>
+  <PageHero
+    title="Payments & W-9"
+    lede="Pay an open invoice online, or download our Form W-9 and ACH payment instructions."
+  />
+
+  <section class="section">
+    <div class="container">
+      <ul class="card-grid">
+        {
+          items.map((item) => (
+            <li>
+              <LinkCard
+                title={item.title}
+                href={item.href}
+                linkLabel={item.linkLabel}
+                detail={item.detail}
+                download={item.download}
+                headingLevel="h2"
+              >
+                <p>{item.text}</p>
+              </LinkCard>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 </BaseLayout>
