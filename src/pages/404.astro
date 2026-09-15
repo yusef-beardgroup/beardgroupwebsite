@@ -1,0 +1,22 @@
+---
+import Arrow from '../components/Arrow.astro';
+import PageHero from '../components/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
+---
+
+<BaseLayout title="Page not found">
+  <PageHero
+    eyebrow="404"
+    title="Page not found"
+    lede="The page you're looking for doesn't exist or may have moved."
+  >
+    <a class="button home-link" href={url()}>Back to home <Arrow /></a>
+  </PageHero>
+</BaseLayout>
+
+<style>
+  .home-link {
+    margin-top: 2.5rem;
+  }
+</style>
