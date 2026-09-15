@@ -1,9 +1,74 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+import Arrow from '../components/Arrow.astro';
 import PageHero from '../components/PageHero.astro';
+import { contactEmail } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contact Us">
-  <PageHero title="Contact Us" lede="This page is being built. Check back soon." />
+<BaseLayout title="Contact Us" description="Get in touch with Beard Group, Inc.">
+  <div class="contact">
+    <PageHero
+      title="Contact Us"
+      lede="For questions about our publications, conferences, or partnerships, we'd be glad to hear from you."
+    >
+      <div class="contact__details">
+        <a class="contact__email" href={`mailto:${contactEmail}`}>
+          {contactEmail}
+          <Arrow />
+        </a>
+        <p class="contact__name">Will Etchison, President</p>
+      </div>
+    </PageHero>
+  </div>
 </BaseLayout>
+
+<style>
+  .contact :global(.page-hero) {
+    display: flex;
+    align-items: center;
+    min-height: min(70vh, 44rem);
+  }
+
+  .contact__details {
+    display: grid;
+    justify-items: start;
+    gap: 0.75rem;
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    padding-top: clamp(2rem, 4vw, 2.5rem);
+    border-top: 1px solid rgb(255 255 255 / 0.16);
+  }
+
+  .contact__email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding-bottom: 0.1em;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 1rem + 3.5vw, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    transition: background-size 0.35s var(--ease-out);
+  }
+
+  .contact__email:hover {
+    background-size: 100% 1px;
+  }
+
+  .contact__email :global(svg) {
+    flex: none;
+    width: 0.55em;
+    height: 0.55em;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .contact__email:hover :global(svg) {
+    transform: translateX(6px);
+  }
+
+  .contact__name {
+    color: rgb(255 255 255 / 0.66);
+    font-size: var(--text-sm);
+  }
+</style>
