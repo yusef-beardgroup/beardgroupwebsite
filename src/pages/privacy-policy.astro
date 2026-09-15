@@ -1,9 +1,299 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+// Policy text is reproduced verbatim from the previous site
+// (beardgroup.com/BeardGroupPrivacyPolicy.htm), including its "as of" date.
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sections = [
+  { id: 'nutshell', title: 'In a Nutshell' },
+  { id: 'when-you-visit', title: 'When you visit us' },
+  { id: 'when-you-use-a-feature', title: 'When you use a feature of our Web site' },
+  { id: 'protecting-information', title: 'How we protect and share the personally identifying information' },
+  { id: 'contacting-you', title: 'When we will contact you' },
+  { id: 'cookies', title: 'Cookies' },
+  { id: 'sale-or-closure', title: 'If Beard Group is sold or goes out of business' },
+  { id: 'changes', title: 'Changes to this Privacy Policy' },
+];
 ---
 
-<BaseLayout title="Privacy Policy">
-  <PageHero title="Privacy Policy" lede="This page is being built. Check back soon." />
+<BaseLayout title="Privacy Policy" description="The Beard Group, Inc. Privacy Policy.">
+  <PageHero title="Privacy Policy" lede="As of August 25, 2017" />
+
+  <section class="section">
+    <div class="container policy-layout">
+      <nav class="toc" aria-labelledby="toc-heading">
+        <p id="toc-heading" class="eyebrow">On this page</p>
+        <ol>
+          {
+            sections.map((section) => (
+              <li>
+                <a href={`#${section.id}`}>{section.title}</a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <article class="policy">
+        <p class="policy__intro">
+          Beard Group, Inc., takes your privacy very seriously. This Privacy Policy tells you what your
+          rights are, and the rules we follow to protect your personal information. Please take a moment
+          to read through it, so you understand what information we collect, and how we might use it.
+          Peter A. Chapman is our designated privacy officer. You can reach Mr. Chapman by e-mail at <a
+            href="mailto:peter@beardgroup.com">peter@beardgroup.com</a
+          > or by telephone at <a href="tel:+12159457000">(215) 945-7000</a>, and he would be delighted
+          to hear from you if you have any questions or need any additional information.
+        </p>
+
+        <section class="policy__summary" aria-labelledby="nutshell">
+          <h2 id="nutshell">In a Nutshell:</h2>
+          <ul>
+            <li>We only collect your personal information when we think we need it.</li>
+            <li>
+              We may use Internet cookies to learn more about our visitors, and what they do on our Web
+              site.
+            </li>
+            <li>
+              We don't sell or share your personal information with anyone, except when required by law,
+              to improve our products or services, or protect our rights, but we might choose to in the
+              future.
+            </li>
+            <li>
+              We only store your information when we think it's needed for us to operate this Web site
+              and its features.
+            </li>
+            <li>We may change our Privacy Policy from time to time.</li>
+          </ul>
+        </section>
+
+        <h2 id="when-you-visit">When you visit us:</h2>
+
+        <h3>What we collect</h3>
+        <p>
+          We may collect some information about you when you visit our site. This information does not
+          identify you. For example, it may include what web browser you use, your preferred language,
+          and when you visited the site. This is commonly called non-identifying information.
+        </p>
+
+        <h3>How we use the information</h3>
+        <p>
+          We use non-identifying information to understand how our visitors use our Web site, so that
+          we can make it even better. We also use it to track things like user trends and behavior on
+          our Web site. From time-to-time, we may create a report that is made public based on
+          non-identifying information. For example, we may do this to show user trends on our Web site.
+        </p>
+
+        <h3>Sharing the information</h3>
+        <p>
+          We may also share this information with third parties (including select vendors, customers,
+          partners and affiliated entities). This report probably won't include information that
+          personally identifies you, but it might. It will include the non-identifying information we
+          collected when you used our site.
+        </p>
+
+        <h2 id="when-you-use-a-feature">When you use a feature of our Web site:</h2>
+
+        <h3>What we collect</h3>
+        <p>
+          If you decide to use some features of our Web site, you may be asked to give us personally
+          identifying information. For example, if you sign up for our mailing list, you will need to
+          give us your name and e-mail address. We only collect information that is necessary. For
+          example, we don't ask for your age when you send us a message through our Web site.
+        </p>
+
+        <h3>Refusing to share information</h3>
+        <p>
+          You always have the option to refuse to give personal information. But, if you don't share the
+          necessary personal information, you might not be able to use certain features of our Web site.
+          For example, you won't be able to send us an e-mail message, subscribe to <i
+            >Turnarounds &amp; Workouts</i
+          >, or learn about any of our other products without giving us your e-mail address and name.
+        </p>
+
+        <h3>When we share the information</h3>
+        <p>
+          We don't ordinarily sell or share personally identifying information with anyone, unless
+          required by law, required to provide services you requested, or if we are acquired by another
+          company (more on this below), but we might, by accident or by design.
+        </p>
+
+        <h2 id="protecting-information">
+          How we protect and share the personally identifying information:
+        </h2>
+
+        <h3>Protecting the information</h3>
+        <p>
+          We protect personally identifying information by using reasonable measures to prevent the
+          unauthorized use, access, alteration, or destruction of the information, with the same level
+          of care and prudence with which we safeguard all of our assets.
+        </p>
+
+        <h3>Sharing the information</h3>
+        <p>
+          We don't ordinarily sell or rent personally identifying information to anyone. But we might at
+          some point in the future. For information that is or may be personally identifying, we only
+          share it with employees, contractors, or other organizations that need to know the information
+          to provide services or process it, and have agreed not to share the information with others.
+          That too might change in the future. We will share the information (only to the extent
+          necessary) if we are asked by a court or other governmental agency for the information, or we
+          believe it is reasonably necessary to share the information to protect us, third parties, or the
+          general public.
+        </p>
+
+        <h2 id="contacting-you">When we will contact you:</h2>
+        <p>
+          If you supply us with your e-mail address, we may send you occasional e-mail messages about
+          other products and services we sell or to get feedback from you. You can unsubscribe from these
+          additional electronic mailings at any time by contacting us, and we'll do our best to stop the
+          flow of unwanted information.
+        </p>
+
+        <h2 id="cookies">Cookies:</h2>
+        <p>
+          A cookie is a small piece of data that a Web site stores on your computer when you visit. Your
+          computer will then give that cookie to the Web site each time you return for a visit. Cookies
+          can be used for many things. We may use cookies to help us understand how and when visitors use
+          our site, your Web site preferences, and a little bit about who you are, to the extent a cookie
+          can reveal that information. For example, we may learn what country you come from, that you read
+          Web sites in English, and that you use a Macbook or PC. We may also do this through the use of
+          cookies from third-party sites, like Google Analytics.
+        </p>
+        <p>
+          If you don't want cookies to be saved to your computer, you can change your browser settings to
+          refuse cookies. But, keep in mind that you may not be able to use all the features of our Web
+          site if you do this.
+        </p>
+
+        <h2 id="sale-or-closure">If Beard Group is sold or goes out of business:</h2>
+        <p>
+          If we, one of our products, or one of our affiliated entities are sold to another company (in
+          whole or in part), or if we go out of business or file for bankruptcy, your personal information
+          will have to be given to a third party. By continuing to use this Web site, you acknowledge that
+          this may happen, and that the third party who acquires the information about you may continue to
+          use it in the way set out by this Privacy Policy.
+        </p>
+
+        <h2 id="changes">Changes to this Privacy Policy:</h2>
+        <p>
+          We may, from time-to-time and in our sole discretion, change this Privacy Policy at any time for
+          any reason or for no reason. If you continue to use this Web site after a change to the Privacy
+          Policy, it means you have accepted the changes we made. It is your responsibility to check this
+          page for any updates.
+        </p>
+      </article>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .policy-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    align-items: start;
+    gap: 2rem clamp(2rem, 6vw, 6rem);
+  }
+
+  .toc {
+    position: sticky;
+    top: calc(var(--header-height) + 2rem);
+  }
+
+  .toc ol {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--gray-200);
+    list-style: none;
+  }
+
+  .toc a {
+    display: block;
+    margin-left: -1px;
+    padding: 0.4rem 0 0.4rem 1rem;
+    border-left: 1px solid transparent;
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    text-decoration: none;
+    transition:
+      color 0.2s var(--ease-out),
+      border-color 0.2s var(--ease-out);
+  }
+
+  .toc a:hover {
+    border-left-color: var(--navy);
+    color: var(--black);
+  }
+
+  .policy {
+    max-width: 46rem;
+    color: var(--gray-700);
+  }
+
+  .policy p {
+    margin-top: 0.85rem;
+  }
+
+  .policy .policy__intro {
+    margin-top: 0;
+    color: var(--black);
+    font-size: var(--text-lg);
+  }
+
+  .policy a {
+    color: var(--navy);
+  }
+
+  .policy h2 {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(2rem, 4vw, 2.5rem);
+    border-top: 1px solid var(--gray-200);
+    color: var(--black);
+    font-size: var(--text-xl);
+    line-height: 1.2;
+  }
+
+  .policy h3 {
+    margin-top: 1.75rem;
+    color: var(--black);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: normal;
+  }
+
+  .policy__summary {
+    margin-top: clamp(2rem, 4vw, 2.5rem);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-left: 3px solid var(--navy);
+    background: var(--gray-50);
+  }
+
+  .policy .policy__summary h2 {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .policy__summary ul {
+    display: grid;
+    gap: 0.6rem;
+    margin: 1rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .policy__summary li::marker {
+    color: var(--navy);
+  }
+
+  @media (max-width: 52rem) {
+    .policy-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      display: none;
+    }
+  }
+</style>
