@@ -1,0 +1,63 @@
+---
+interface Props {
+  /** Short section label shown in the left column. */
+  label: string;
+  tone?: 'white' | 'gray';
+}
+
+const { label, tone = 'white' } = Astro.props;
+---
+
+<section class:list={['split', 'section', { 'split--gray': tone === 'gray' }]}>
+  <div class="container split__inner">
+    <h2 class="eyebrow split__label">{label}</h2>
+    <div class="split__content">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .split--gray {
+    background: var(--gray-50);
+  }
+
+  /* Consecutive white sections share one gap, divided by a hairline. */
+  .split:not(.split--gray) + .split:not(.split--gray) {
+    padding-top: 0;
+  }
+
+  .split:not(.split--gray) + .split:not(.split--gray) .split__inner {
+    padding-top: var(--section-space);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .split__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 1.5rem clamp(2rem, 6vw, 6rem);
+  }
+
+  .split__label {
+    margin: 0;
+    padding-top: 0.55rem;
+  }
+
+  .split__content {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 46rem;
+    color: var(--gray-700);
+    font-size: var(--text-lg);
+  }
+
+  @media (max-width: 52rem) {
+    .split__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .split__label {
+      padding-top: 0;
+    }
+  }
+</style>

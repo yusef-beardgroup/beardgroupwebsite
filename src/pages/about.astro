@@ -1,9 +1,83 @@
 ---
-// Placeholder so navigation resolves on the preview; replaced as each page is built.
+import Arrow from '../components/Arrow.astro';
 import PageHero from '../components/PageHero.astro';
+import SplitSection from '../components/SplitSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url';
 ---
 
-<BaseLayout title="About">
-  <PageHero title="About" lede="This page is being built. Check back soon." />
+<BaseLayout
+  title="About"
+  description="Beard Group, Inc. is a law and business publisher founded in 1986, serving the world's largest law firms, financial professionals, risk managers, business consultants, and investors."
+>
+  <PageHero title="About Beard Group" />
+
+  <SplitSection label="Who we are">
+    <p class="lead">
+      Beard Group, Inc. is a law and business publisher founded in 1986. The world's largest law
+      firms, financial professionals, risk managers, business consultants, and investors rely on our
+      newsletter titles and research. All of our news and research is available via LexisNexis,
+      Thomson Reuters' Westlaw, The Bloomberg Professional Service, Dow Jones' Factiva, Refinitiv (an
+      LSEG business), and AlphaSense — and we're honored to contribute third-party content to these
+      market-moving syndication outlets.
+    </p>
+  </SplitSection>
+
+  <SplitSection label="What we do">
+    <p>
+      Beyond our newsletters, Beard Group publishes more than 300 business, law, and finance books
+      through BeardBooks.com, produces webinars and podcasts for the corporate restructuring and
+      complex litigation markets, and hosts two of the industry's leading annual gatherings in Midtown
+      Manhattan: the Distressed Investing Conference and the Class Action Money &amp; Ethics
+      Conference.
+    </p>
+    <ul class="about-links">
+      <li>
+        <a class="link-arrow" href={url('products/')}>Explore our products <Arrow /></a>
+      </li>
+      <li>
+        <a class="link-arrow" href="https://www.beardbooks.com/" target="_blank" rel="noopener">
+          Visit BeardBooks.com<span class="visually-hidden">, opens in a new tab</span>
+          <Arrow external />
+        </a>
+      </li>
+      <li>
+        <a class="link-arrow" href={url('conferences/')}>See our conferences <Arrow /></a>
+      </li>
+    </ul>
+  </SplitSection>
+
+  <SplitSection label="Our history" tone="gray">
+    <p>
+      Our roots trace back to 1987, when founder Christopher Beard launched <em
+        >Turnarounds &amp; Workouts</em
+      >, a newsletter covering the corporate restructuring industry. The <em
+        >Troubled Company Reporter</em
+      > followed in 1994, establishing the daily coverage of chapter 11 filings and corporate distress
+      that remains the core of our business today. In the decades since, our roster has grown to more
+      than a dozen titles covering bankruptcy, restructuring, and class action litigation across North
+      America, Europe, Latin America, and Asia Pacific.
+    </p>
+  </SplitSection>
 </BaseLayout>
+
+<style>
+  .lead {
+    color: var(--black);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .about-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2.5rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    color: var(--navy);
+    font-size: var(--text-base);
+    list-style: none;
+  }
+</style>
