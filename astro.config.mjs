@@ -1,12 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// Until beardgroup.com points at this repo, GitHub Pages serves the site as a
-// project page under /beardgroupwebsite/. When the custom domain goes live,
-// set SITE_URL=https://www.beardgroup.com and BASE_PATH=/ (or change the
-// defaults below) and add public/CNAME.
-const site = process.env.SITE_URL ?? 'https://yusef-beardgroup.github.io';
-const base = process.env.BASE_PATH ?? '/beardgroupwebsite';
+// The site is served from beardgroup.com at the root (public/CNAME sets the
+// custom domain). To build for the github.io project-page preview instead, set
+// SITE_URL=https://yusef-beardgroup.github.io and BASE_PATH=/beardgroupwebsite.
+const site = process.env.SITE_URL ?? 'https://beardgroup.com';
+const base = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
   site,
