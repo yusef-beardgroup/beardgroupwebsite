@@ -1,8 +1,10 @@
 ---
 import Arrow from '../components/Arrow.astro';
 import PageHero from '../components/PageHero.astro';
-import { contactEmail } from '../data/site';
+import { contactEmail, contactPhone } from '../data/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const contactTel = `tel:+1${contactPhone.replace(/\D/g, '')}`;
 ---
 
 <BaseLayout title="Contact Us" description="Get in touch with Beard Group, Inc.">
@@ -16,6 +18,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           {contactEmail}
           <Arrow />
         </a>
+        <a class="contact__phone" href={contactTel}>{contactPhone}</a>
         <p class="contact__name">Will Etchison, President</p>
       </div>
     </PageHero>
@@ -65,6 +68,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .contact__email:hover :global(svg) {
     transform: translateX(6px);
+  }
+
+  .contact__phone {
+    color: rgb(255 255 255 / 0.92);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    text-decoration: none;
+  }
+
+  .contact__phone:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .contact__name {

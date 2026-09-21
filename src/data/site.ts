@@ -2,6 +2,8 @@ export const legalName = 'Beard Group, Inc.';
 
 export const contactEmail = 'will@beardgroup.com';
 
+export const contactPhone = '305-707-7493';
+
 export interface NavLink {
   label: string;
   /** Path relative to the site base, with trailing slash; pass through url(). */

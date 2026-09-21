@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Arrow from '../components/Arrow.astro';
 import PageHero from '../components/PageHero.astro';
 import { team } from '../data/team';
@@ -9,6 +10,8 @@ const initials = (name: string) =>
     .split(' ')
     .map((part) => part[0])
     .join('');
+
+const telHref = (phone: string) => `tel:+1${phone.replace(/\D/g, '')}`;
 ---
 
 <BaseLayout title="Meet the Team" description="The leadership team of Beard Group, Inc.">
@@ -21,13 +24,25 @@ const initials = (name: string) =>
           team.map((member) => (
             <li class="member">
               <div class="member__profile">
-                <span class="member__initials" aria-hidden="true">
-                  {initials(member.name)}
-                </span>
+                {member.photo ? (
+                  <Image class="member__photo" src={member.photo} alt="" width={220} />
+                ) : (
+                  <span class="member__initials" aria-hidden="true">
+                    {initials(member.name)}
+                  </span>
+                )}
                 <div>
                   <h2>{member.name}</h2>
                   <p class="member__title">{member.title}</p>
                 </div>
+                <ul class="member__contact">
+                  <li>
+                    <a href={`mailto:${member.email}`}>{member.email}</a>
+                  </li>
+                  <li>
+                    <a href={telHref(member.phone)}>{member.phone}</a>
+                  </li>
+                </ul>
                 <a class="link-arrow member__link" href={member.linkedin} target="_blank" rel="noopener">
                   LinkedIn
                   <span class="visually-hidden">: {member.name}, opens in a new tab</span>
@@ -74,11 +89,20 @@ const initials = (name: string) =>
     gap: 1.25rem;
   }
 
+  .member__photo,
+  .member__initials {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .member__photo {
+    object-fit: cover;
+    object-position: center;
+  }
+
   .member__initials {
     display: grid;
     place-items: center;
-    width: 4.5rem;
-    height: 4.5rem;
     background: radial-gradient(120% 120% at 100% 0%, #14325c 0%, var(--navy) 55%, var(--navy-dark) 100%);
     color: var(--white);
     font-family: var(--font-serif);
@@ -98,6 +122,25 @@ const initials = (name: string) =>
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+  }
+
+  .member__contact {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-sm);
+    list-style: none;
+  }
+
+  .member__contact a {
+    color: var(--gray-700);
+    text-decoration: none;
+  }
+
+  .member__contact a:hover {
+    color: var(--navy);
+    text-decoration: underline;
   }
 
   .member__link {
