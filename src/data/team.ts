@@ -1,4 +1,6 @@
+import peterHeadshot from '../peterheadshot.png';
 import willHeadshot from '../willheadshot.png';
+import yusefHeadshot from '../yusefheadshot.png';
 
 export interface TeamMember {
   name: string;
@@ -27,6 +29,7 @@ export const team: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/yusef-siddiqui/',
     email: 'yusef@beardgroup.com',
     phone: '503-915-9225',
+    photo: yusefHeadshot,
     bio: "Yusef Siddiqui serves as Chief Operating Officer of Beard Group, where he heads operations across the company's publishing business. He manages product development and production, talent acquisition, and the integration of AI into Beard Group's editorial and operational workflows, helping the company scale its content operations while maintaining the accuracy and reliability its subscribers depend on.",
   },
   {
@@ -35,6 +38,7 @@ export const team: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/peter-a-chapman-beard-group/',
     email: 'peter@beardgroup.com',
     phone: '(215) 945-7000',
+    photo: peterHeadshot,
     bio: "Peter Chapman is Chief Financial Officer of Beard Group, Inc., having previously served as the company's Chief Executive Officer from 2011 to 2026. He has spent nearly four decades in the corporate insolvency information business, publishing sole-source research and news for business, legal, and finance professionals under the Bankruptcy Creditors' Service name, with a continuous web presence at bankrupt.com since 1994. His work and Beard Group's publications serve clients across the AmLaw 100, all Big Four accounting firms, Wall Street investment banks, and Fortune 500 companies. Peter holds a B.S. in Accounting from the University of Cincinnati and has directed news content and data teams across multiple countries throughout his career. Outside of Beard Group, he volunteers at a local food pantry and serves as treasurer of his church.",
   },
 ];
